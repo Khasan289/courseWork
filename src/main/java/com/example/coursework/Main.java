@@ -30,9 +30,7 @@ public class Main {
 
         int min = arrayEmployees[0].getSalary();
         for (int i = 0; i < arrayEmployees.length - 1; i++) {
-            if (arrayEmployees[i] == null) {
-                break;
-            } else if (arrayEmployees[i].getSalary() < min) {
+            if (arrayEmployees[i] != null && arrayEmployees[i].getSalary() < min) {
                 min = arrayEmployees[i].getSalary();
             }
         }
@@ -45,9 +43,7 @@ public class Main {
 
         int max = arrayEmployees[0].getSalary();
         for (int i = 0; i < arrayEmployees.length - 1; i++) {
-            if (arrayEmployees[i] == null) {
-                break;
-            } else if (arrayEmployees[i].getSalary() > max) {
+            if (arrayEmployees[i] != null && arrayEmployees[i].getSalary() > max) {
                 max = arrayEmployees[i].getSalary();
             }
         }
