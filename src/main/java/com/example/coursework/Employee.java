@@ -2,12 +2,12 @@ package com.example.coursework;
 
 public class Employee {
     private final String fullName;
-    private String department;
+    private int department;
     private int salary;
     private int id;
     public static int count;
 
-    public Employee(String fullName,String department,int salary) {
+    public Employee(String fullName,int department,int salary) {
         this.fullName = fullName;
         this.salary = salary;
         this.department = department;
@@ -18,7 +18,7 @@ public class Employee {
         return fullName;
     }
 
-    public String getDepartment() {
+    public int getDepartment() {
         return department;
     }
 
@@ -34,18 +34,18 @@ public class Employee {
         return count;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(int department) {
         this.department = department;
     }
 
     public void setSalary(int salary) {
-        this.salary = salary;
+        this.salary = this.salary +(this.salary/ 100) * salary;
     }
 
     @Override
     public String toString() {
 
-        return "Ф.И.О.-" + fullName + ", "
+        return "Ф.И.О.-" + fullName + ", Отдел № "
                 + department + ", " +
                 "Заработная плата " + salary + " рублей в месяц"
                 + ", id сотрудника-" + id;
