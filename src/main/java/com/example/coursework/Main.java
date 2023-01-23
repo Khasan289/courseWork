@@ -8,9 +8,9 @@ public class Main {
     public static void printEmployees() {
         // Метод для вывода в консоль всех данных сотрудников
 
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null) {
-                System.out.println(employees[i]);
+        for (Employee employee : employees) {
+            if (employee != null) {
+                System.out.println(employee);
             }
         }
         System.out.println();
@@ -20,9 +20,9 @@ public class Main {
         // Метод для подсчета суммы затрат на ЗП
 
         int sum = 0;
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null) {
-                sum += employees[i].getSalary();
+        for (Employee employee : employees) {
+            if (employee != null) {
+                sum += employee.getSalary();
             }
         }
         System.out.println("Сумма затрат на зарплаты, составляет " + sum + " рублей");
@@ -32,10 +32,10 @@ public class Main {
     public static void determineMinSalary() {
         // Метод для определения минимальной ЗП
 
-        int min = employees[0].getSalary();
-        for (int i = 0; i < employees.length - 1; i++) {
-                if (employees[i] != null && employees[i].getSalary() < min) {
-                min = employees[i].getSalary();
+        int min = Integer.MAX_VALUE;
+        for (Employee employee : employees) {
+            if (employee != null && employee.getSalary() < min) {
+                min = employee.getSalary();
             }
         }
         System.out.println("Минимальная зарплата сотрудника составляет " + min);
@@ -45,10 +45,10 @@ public class Main {
     public static void determineMaxSalary() {
         // Метод для определиня максимальной ЗП
 
-        int max = employees[0].getSalary();
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null && employees[i].getSalary() > max) {
-                max = employees[i].getSalary();
+        int max = Integer.MIN_VALUE;
+        for (Employee employee : employees) {
+            if (employee != null && employee.getSalary() > max) {
+                max = employee.getSalary();
             }
         }
         System.out.println("Максимальная зарплата сотрудника составляет " + max);
@@ -60,9 +60,9 @@ public class Main {
 
         int sum = 0;
         int numberEmployees = 0;
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null) {
-                sum += employees[i].getSalary();
+        for (Employee employee:employees) {
+            if (employee != null) {
+                sum += employee.getSalary();
                 numberEmployees += 1;
             }
         }
@@ -74,18 +74,18 @@ public class Main {
     public static void printFullName() {
         // Метод для печати Ф.И.О. сотрудников
 
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null) {
-                System.out.println(employees[i].getFullName());
+        for (Employee employee:employees) {
+            if (employee != null) {
+                System.out.println(employee.getFullName());
             }
         }
 
     }
 
     public static void changeSalaryAllEmployees( int salaryIndexation) {
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null) {
-                employees[i].setSalary(salaryIndexation);
+        for (Employee employee:employees) {
+            if (employee != null) {
+                employee.setSalary(salaryIndexation);
             }
 
         }
@@ -93,44 +93,91 @@ public class Main {
 
     public static void determineMinSalaryForDepartment(int department) {
 
-        int min = employees[0].getSalary();
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null && employees[i].getDepartment() == department) {
-                break;
-            }else if (employees[i].getSalary() < min)
-            min = employees[i].getSalary();
+        int min =Integer.MAX_VALUE;
+        for (Employee employee:employees) {
+            if (employee != null && employee.getDepartment() != department) {
+                continue;
+            }
+            if (employee != null && employee.getSalary() < min) {
+                min = employee.getSalary();
+            }
         }
-        System.out.println("Минимальная зарплата сотрудника в отделе № " + department + " " + min + " рублей");
+        System.out.println("Минимальная зарплата сотрудника в отделе № " + department + ", " + min + " рублей");
         System.out.println();
     }
     public static void determineMaxSalaryForDepartment(int department) {
 
 
-        int max = employees[0].getSalary();
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null && employees[i].getDepartment() != department) {
-                break;
-            } else if (employees[i].getSalary()>max) {
-                max = employees[i].getSalary();
+        int max = Integer.MIN_VALUE;
+
+        for (Employee employee:employees) {
+            if (employee != null && employee.getDepartment() != department) {
+                continue;
+            }
+            if (employee != null && employee.getSalary() > max) {
+                max = employee.getSalary();
             }
         }
-        System.out.println("Максимальная зарплата сотрудника в отделе № " + department + " " + max + " рублей");
+        System.out.println("Максимальная зарплата сотрудника в отделе № " + department + ", " + max + " рублей");
         System.out.println();
 
     }
 
     public static void calculateSumSalaryForDepartment(int department) {
         int sum = 0;
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i] != null && employees[i].getDepartment() == department) {
-                sum += employees[i].getSalary();
+        for (Employee employee : employees) {
+            if (employee!= null && employee.getDepartment() == department) {
+                sum += employee.getSalary();
             }
         }
         System.out.println("Сумма затрат на зарплаты в отделе № " + department + ", составляет " + sum + " рублей");
         System.out.println();
     }
 
+    public static void determineAverageSalaryForDepartment(int department) {
+        int sum = 0;
+        int numberEmployees = 0;
+        for (Employee employee:employees) {
+            if (employee != null && employee.getDepartment()==department) {
+                sum += employee.getSalary();
+                numberEmployees += 1;
+            }
+        }
+        double averageSalary = sum / numberEmployees;
+        System.out.println("Средняя зарплата в отделе № " + department + ", " + averageSalary + " рублей");
+        System.out.println();
+    }
 
+    public static void changeSalaryAllEmployeesForDepartment(int department, int percent) {
+        for (Employee employee:employees) {
+            if (employee != null && employee.getDepartment() == department) {
+                employee.setSalary(percent);
+            }
+
+        }
+    }
+    public static void printEmployeesDepartment(int department) {
+        for (Employee employee : employees) {
+            if (employee != null && employee.getDepartment() == department) {
+                System.out.println(employee.getFullName() + ", зарплата " + employee.getSalary() + " рублей " + ", id: " + employee.getId());
+            }
+        }
+    }
+
+    public static void determineSalaryLessNumber(int number) {
+        for (Employee employee : employees) {
+            if (employee != null && employee.getSalary() < number) {
+                System.out.println("id: " + employee.getId() + ", " + employee.getFullName() + ", зарплата " + employee.getSalary() + " рублей");
+            }
+        }
+    }
+    public static void determineSalaryGreaterNumber(int number) {
+        for (Employee employee : employees) {
+            if (employee != null && employee.getSalary() >= number) {
+                System.out.println("id: " + employee.getId() + ", " + employee.getFullName() + ", зарплата " + employee.getSalary() + " рублей");
+            }
+        }
+    }
 
 
 
@@ -158,10 +205,18 @@ public class Main {
         employees[6] = kantemirov;
         employees[7] = kozyrev;
 
-        determineAverageSalary();
+        changeSalaryAllEmployees(10);
+
         determineMinSalaryForDepartment(1);
         determineMaxSalaryForDepartment(3);
-        calculateSumSalaryForDepartment(1);
+        calculateSumSalaryForDepartment(3);
+        determineAverageSalaryForDepartment(3);
+        changeSalaryAllEmployeesForDepartment(3,30);
+        printEmployeesDepartment(3);
+
+
+        determineSalaryLessNumber(1500);
+        determineSalaryGreaterNumber(80_000);
 
 
 
